@@ -1,0 +1,11 @@
+[Bb]uild*/
+CMakeLists.txt.user
+.vscode/
+.devcontainer/
+.idea/
+cmake-build-*
+__pycache__
+resources/*.qss
+.PVS-Studio/
+*.PVS-Studio.*
+doc/html
