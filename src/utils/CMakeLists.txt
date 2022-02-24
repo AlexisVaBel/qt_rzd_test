@@ -3,6 +3,7 @@ set(HEADERS)
 
 set(UTILS_MODULES
         json
+        network
         )
 
 foreach (X ${UTILS_MODULES})
@@ -16,4 +17,4 @@ endforeach ()
 
 add_library(utils STATIC ${SOURCES} ${HEADERS})
 
-target_link_libraries(utils PUBLIC Qt5::Core)
+target_link_libraries(utils PUBLIC Qt5::Core Qt5::Gui Qt5::Network)
