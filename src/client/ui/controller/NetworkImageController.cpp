@@ -28,6 +28,7 @@ NetworkImageController::NetworkImageController() {
 }
 
 NetworkImageController::~NetworkImageController() {
+	stop();
 	_pixmaps.erase(std::remove_if(_pixmaps.begin(), _pixmaps.end(), [](QPixmap* pixmap) { return true; }), _pixmaps.end());
 }
 
@@ -42,7 +43,7 @@ void NetworkImageController::onLoadedImg(const QString& path, QPixmap* pix, cons
 	//	QLabel* lbl = new QLabel();
 	//	lbl->setPixmap(*pix);
 	//	lbl->resize(pix->size());
-	//	lbl->show();
+	//	lbl->activate();
 }
 
 void NetworkImageController::stop() {

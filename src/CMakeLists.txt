@@ -16,7 +16,9 @@ set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 
-# ORDER OF TARGETS IS IMPORTANT
-add_subdirectory(client)
+
+# ORDER OF TARGETS IS IMPORTANT - first utils
 add_subdirectory(utils)
+add_subdirectory(client)
+
 

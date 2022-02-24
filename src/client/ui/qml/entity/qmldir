@@ -1,5 +1,0 @@
-module Entity
-
-Tile qrc:/ui/qml/entity/Tile.qml
-GameBoard qrc:/ui/qml/entity/GameBoard.qml
-
