@@ -32,6 +32,14 @@ NetworkImageController::~NetworkImageController() {
 	_pixmaps.erase(std::remove_if(_pixmaps.begin(), _pixmaps.end(), [](QPixmap* pixmap) { return true; }), _pixmaps.end());
 }
 
+void NetworkImageController::clearPixmaps() {
+	_pixmaps.erase(std::remove_if(_pixmaps.begin(), _pixmaps.end(), [](QPixmap* pixmap) { return true; }), _pixmaps.end());
+}
+
+std::vector<QPixmap*> NetworkImageController::getPixmaps() const {
+	return _pixmaps;
+}
+
 void NetworkImageController::addUrl(QString path) {
 	qDebug() << "add url " << path;
 	_netLoader->addTask(std::move(path), QPersistentModelIndex());
@@ -40,10 +48,7 @@ void NetworkImageController::addUrl(QString path) {
 void NetworkImageController::onLoadedImg(const QString& path, QPixmap* pix, const QPersistentModelIndex& index) {
 	qDebug() << "loaded by path: " << path;
 	_pixmaps.push_back(std::move(pix));
-	//	QLabel* lbl = new QLabel();
-	//	lbl->setPixmap(*pix);
-	//	lbl->resize(pix->size());
-	//	lbl->activate();
+	imageLoaded(*_pixmaps.rbegin());
 }
 
 void NetworkImageController::stop() {

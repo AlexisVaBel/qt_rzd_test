@@ -18,7 +18,7 @@ JsonLoader::~JsonLoader() {
 bool JsonLoader::isFileValid() {
 	_loadFile.setFileName(_path);
 	if (!_loadFile.open(QIODevice::ReadOnly)) {
-		qDebug() << _loadFile.fileName();
+		qDebug() << "can`t open file: " << _loadFile.fileName();
 		return false;
 	}
 	return true;
@@ -26,8 +26,6 @@ bool JsonLoader::isFileValid() {
 
 QJsonDocument JsonLoader::load() {
 	QByteArray loadedData = _loadFile.readAll();
-
 	QJsonDocument loadDoc(QJsonDocument::fromJson(loadedData));
-
 	return std::move(loadDoc);
 }

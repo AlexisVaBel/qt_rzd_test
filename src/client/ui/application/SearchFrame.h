@@ -1,6 +1,7 @@
 //
 // Created by abel on 24.02.2022.
 //
+#include <QListView>
 #include "IFramePage.h"
 
 #pragma once
@@ -16,6 +17,9 @@ public:
 	void construct() override;
 	void appendText(QString text) override;
 	void appendPixmap(QPixmap* pixmap) override;
+private:
+	QListView* _listView;
+	QStringList _listData;
 };
 
 } // namespace ui::application

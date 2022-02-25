@@ -21,6 +21,10 @@ public:
 	void onLoadedImg(const QString& path, QPixmap* pix, const QPersistentModelIndex& index);
 	void addUrl(QString path);
 	void stop();
+	void clearPixmaps();
+	std::vector<QPixmap*> getPixmaps() const;
+signals:
+	void imageLoaded(QPixmap* pix);
 
 private:
 	utils::network::NetworkLoader* _netLoader;

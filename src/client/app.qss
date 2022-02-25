@@ -30,6 +30,17 @@ QPushButton {
     margin-top: 16px;
 }
 
+QPushButton[navigate="true"] {
+    background-color: silver;
+    width: 64px;
+    height: 64px;
+    border-radius: 32;
+    margin-right: 32px;
+}
+
+QPushButton[navigate="true"]:hover{
+    background-color: gray;
+}
 
 QLabel {
     color: black;
@@ -37,6 +48,11 @@ QLabel {
     margin-bottom: 16px;
 }
 
+QLabel[summary="true"] {
+    color: black;
+    margin-left: 32px;
+    margin-right: 32px;
+}
 
 QFrame {
     background: lightgray;

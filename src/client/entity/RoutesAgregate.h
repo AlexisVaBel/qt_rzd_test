@@ -1,8 +1,9 @@
-//
-// Created by abel on 24.02.2022.
-//
-
 #pragma once
+
+#include <QString>
+
+#include <map>
+#include <QJsonArray>
 #include <vector>
 
 class QJsonObject;
@@ -15,12 +16,16 @@ class RoutesAgregate {
 public:
 	void read(const QJsonObject& json);
 
-private:
-	void readRoutes(const QJsonObject& json);
-	void readCategories(const QJsonObject& json);
-	void readSummary(const QJsonObject& json);
+	std::vector<QString> getCategories();
 
-	std::vector<Route> _routes;
+private:
+	void readFull(const QJsonArray& json);
+	void readCategories(const QJsonArray& json);
+	void readSummary(const QJsonArray& json);
+
+	std::vector<Route> _routesFull;
+	std::vector<Route> _routesSummary;
+	std::map<QString, int> _category;
 };
 
 } // namespace client::entity

@@ -49,12 +49,10 @@ void NetworkLoader::run() {
 			setCurrentUrl(_path);
 		}
 	}
-	qDebug() << "seems to be stoped";
 }
 
 void NetworkLoader::onNetworkResult(QNetworkReply* reply) {
 	int httpStatusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-	qDebug() << "some reply here " << reply->error() << "|" << httpStatusCode;
 
 	if (reply->error() || httpStatusCode == NOT_FOUND_CODE) {
 		qDebug() << "error : " << reply->errorString();

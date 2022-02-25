@@ -22,9 +22,14 @@ SearchFrame::~SearchFrame() {
 
 void SearchFrame::activate() {
 }
+
 void SearchFrame::waitUpdated() {
+	_listData.clear();
 }
+
 void SearchFrame::updatedFinished() {
+	QStringListModel* model = qobject_cast<QStringListModel*>(_listView->model());
+	model->setStringList(_listData);
 }
 
 void SearchFrame::construct() {
@@ -44,29 +49,27 @@ void SearchFrame::construct() {
 	QHBoxLayout* layoutSearch = new QHBoxLayout(frameContainerSearch);
 	buttonSearch->setText("Search");
 
+	connect(buttonSearch, &QPushButton::clicked, this, [this, edit] {
+		emit searchCalled(edit->text());
+	});
+
 	frameContainerSearch->setLayout(layoutSearch);
 	layoutSearch->addWidget(edit);
 	layoutSearch->addWidget(buttonSearch);
 
-	QListView* list = new QListView(this);
-	list->setSelectionMode(QAbstractItemView::SingleSelection);
+	_listView = new QListView(this);
+	_listView->setSelectionMode(QAbstractItemView::SingleSelection);
 
 	QStringListModel* lstModel = new QStringListModel(this);
-	QStringList lst;
-	lst << "1 some text"
-		<< "2"
-		<< "3";
-	lstModel->setStringList(lst);
-
-	list->setModel(lstModel);
+	_listView->setModel(lstModel);
 
 	layout->addWidget(labelSearch);
 	layout->addWidget(frameContainerSearch);
-	layout->addWidget(list);
+	layout->addWidget(_listView);
 }
 
 void SearchFrame::appendText(QString text) {
-	//
+	_listData.push_back(text);
 }
 
 void SearchFrame::appendPixmap(QPixmap* pixmap) {

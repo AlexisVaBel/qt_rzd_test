@@ -1,7 +1,3 @@
-//
-// Created by abel on 23.02.2022.
-//
-
 #include "Route.h"
 #include <QJsonArray>
 #include <QJsonObject>
