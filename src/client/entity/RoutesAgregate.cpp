@@ -5,8 +5,6 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-#include "Route.h"
-
 using namespace client::entity;
 
 void RoutesAgregate::read(const QJsonObject& json) {
@@ -15,19 +13,19 @@ void RoutesAgregate::read(const QJsonObject& json) {
 	for (const QString key : keys) {
 		QJsonArray innerArray = json[key].toArray();
 		if (key == "categories") {
-			readCategories(innerArray);
+			_readCategories(innerArray);
 		}
 		if (key == "full") {
-			readFull(innerArray);
+			_readFull(innerArray);
 		}
 		if (key == "summary") {
-			readSummary(innerArray);
+			_readSummary(innerArray);
 		}
 	}
 }
 
 //std::unordered_map<int, QString> _category;
-void RoutesAgregate::readFull(const QJsonArray& json) {
+void RoutesAgregate::_readFull(const QJsonArray& json) {
 	_routesFull.reserve(json.size());
 	for (int index = 0; index < json.size(); ++index) {
 		_routesFull.emplace_back(Route());
@@ -35,7 +33,7 @@ void RoutesAgregate::readFull(const QJsonArray& json) {
 	}
 }
 
-void RoutesAgregate::readCategories(const QJsonArray& json) {
+void RoutesAgregate::_readCategories(const QJsonArray& json) {
 	int id{0};
 	QString name{""};
 	for (int index = 0; index < json.size(); ++index) {
@@ -46,7 +44,7 @@ void RoutesAgregate::readCategories(const QJsonArray& json) {
 			continue;
 		}
 		if (currentObject.contains("category_id") && currentObject["category_id"].isDouble()) {
-			id = currentObject["id"].toInt();
+			id = currentObject["category_id"].toInt();
 		} else {
 			continue;
 		}
@@ -54,17 +52,30 @@ void RoutesAgregate::readCategories(const QJsonArray& json) {
 	}
 }
 
-void RoutesAgregate::readSummary(const QJsonArray& json) {
+void RoutesAgregate::_readSummary(const QJsonArray& json) {
 	_routesSummary.reserve(json.size());
 	for (int index = 0; index < json.size(); ++index) {
 		_routesSummary.emplace_back(Route());
 		_routesSummary.rbegin()->read(json[index].toObject());
 	}
 }
+
 std::vector<QString> RoutesAgregate::getCategories() {
 	std::vector<QString> categoryList;
 	for (auto const [key, _] : _category) {
 		categoryList.push_back(key);
 	}
 	return categoryList;
+}
+
+std::vector<Route> RoutesAgregate::getRoutes() {
+	return _routesFull;
+}
+
+std::vector<Route> RoutesAgregate::getSummary() {
+	return _routesSummary;
+}
+
+int RoutesAgregate::getIdByCategory(QString category) {
+	return _category.at(category);
 }

@@ -1,21 +1,24 @@
-//
-// Created by abel on 24.02.2022.
-//
-#include "IFramePage.h"
-
 #pragma once
+
+#include "IFramePage.h"
+#include <QPushButton>
+#include <QStackedWidget>
+
 namespace ui::application {
 
 class DetailsFrame : public IFramePage {
 public:
 	DetailsFrame(QWidget* parent = nullptr);
 	~DetailsFrame() override;
-	void activate() override;
-	void waitUpdated() override;
-	void updatedFinished() override;
-	void construct() override;
-	void appendText(QString text) override;
-	void appendPixmap(QPixmap* pixmap) override;
+	void imageLoaded(QPixmap* pixmap) override;
+	void groupFinished(QString groupName) override;
+	void processText(QString string) override;
+
+private:
+	void _construct();
+	QStackedWidget* _stackedImage;
+	QPushButton* _btnPrevious;
+	QPushButton* _btnNext;
 };
 
 } // namespace ui::application

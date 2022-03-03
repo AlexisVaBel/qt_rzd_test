@@ -1,6 +1,5 @@
 #include <QApplication>
-
-#include "ui/application/MainWindow.h"
+#include <ui/application/CategoriesFrame.h>
 
 int main(int argc, char** argv) {
 	QApplication app(argc, argv);
@@ -10,9 +9,8 @@ int main(int argc, char** argv) {
 	} else {
 		str = "./test.json";
 	}
-	ui::application::MainWindow mainWindow(nullptr, str);
-	mainWindow.setWindowState(Qt::WindowMaximized);
-	mainWindow.show();
-
+	ui::application::CategoriesFrame categoriesFrame(str);
+	categoriesFrame.resize(640, 480);
+	categoriesFrame.show();
 	return app.exec();
 }

@@ -18,13 +18,10 @@ static constexpr int WAIT_FOR_DONE_MS = 100;
 NetworkImageController::NetworkImageController() {
 	_netLoader = new utils::network::NetworkLoader();
 	_netLoader->setAutoDelete(true);
-	//	connect(_netLoader.get(), &utils::network::NetworkLoader::onLoadedImg, this, &NetworkImageController::onLoadedImg);
+
 	connect(_netLoader, &utils::network::NetworkLoader::onLoadedImg, this, &NetworkImageController::onLoadedImg);
 
-	qDebug() << "adding to pool";
-	//	QThreadPool::globalInstance()->start(_netLoader.get());
 	QThreadPool::globalInstance()->start(_netLoader);
-	qDebug() << "added to pool";
 }
 
 NetworkImageController::~NetworkImageController() {
@@ -49,9 +46,24 @@ void NetworkImageController::onLoadedImg(const QString& path, QPixmap* pix, cons
 	qDebug() << "loaded by path: " << path;
 	_pixmaps.push_back(std::move(pix));
 	imageLoaded(*_pixmaps.rbegin());
+	--_groupImageCounter;
+	if (_groupImageCounter == 0) {
+		emit groupFinished(_groups.front().name);
+		_groups.pop();
+		if(!_groups.empty()) {
+			_groupImageCounter = _groups.front().count;
+		}
+	}
 }
 
 void NetworkImageController::stop() {
 	_netLoader->stop();
 	QThreadPool::globalInstance()->waitForDone(WAIT_FOR_DONE_MS);
+}
+
+void NetworkImageController::addGroupName(QString groupName, int expectedImages) {
+	_groups.emplace(GroupImages{groupName, expectedImages});
+	if (_groupImageCounter == 0) {
+		_groupImageCounter = _groups.front().count;
+	}
 }

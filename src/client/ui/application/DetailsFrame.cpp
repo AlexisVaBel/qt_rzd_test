@@ -1,43 +1,65 @@
-//
-// Created by abel on 24.02.2022.
-//
-
 #include "DetailsFrame.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QPushButton>
-#include <QTableWidget>
+#include <QTextEdit>
 #include <QVBoxLayout>
+
+#include <QDebug>
 using namespace ui::application;
 
 DetailsFrame::DetailsFrame(QWidget* parent)
-	: IFramePage(parent) {
-	construct();
+	: IFramePage(parent)
+	, _stackedImage(new QStackedWidget(this)) {
+	_construct();
 }
 
 DetailsFrame::~DetailsFrame() {
 }
 
-void DetailsFrame::activate() {
-}
-void DetailsFrame::waitUpdated() {
-}
-void DetailsFrame::updatedFinished() {
-}
-
-void DetailsFrame::construct() {
+void DetailsFrame::_construct() {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setAlignment(Qt::AlignTop);
 	setLayout(layout);
 
-	QLineEdit* edit = new QLineEdit(this);
-	edit->setProperty("search", true);
+	QLabel* labelInfo = new QLabel("Info", this);
+	QTextEdit* editDetail = new QTextEdit(this);
+	editDetail->setText("detailed");
+	editDetail->setReadOnly(true);
 
-	layout->addWidget(edit);
+	QFrame* frameContainer = new QFrame(this);
+	QVBoxLayout* layoutContainer = new QVBoxLayout(frameContainer);
+
+	QHBoxLayout* layoutControls = new QHBoxLayout(frameContainer);
+	_btnPrevious = new QPushButton("prev", this);
+	_btnNext = new QPushButton("next", this);
+	_btnPrevious->setMinimumHeight(32);
+	_btnNext->setMinimumHeight(32);
+	_btnPrevious->setProperty("navigate", true);
+	_btnNext->setProperty("navigate", true);
+	layoutControls->setAlignment(Qt::AlignRight);
+	layoutControls->addWidget(_btnPrevious);
+	layoutControls->addWidget(_btnNext);
+
+	layoutContainer->addWidget(_stackedImage);
+	layoutContainer->addLayout(layoutControls);
+
+	layout->addWidget(labelInfo);
+	layout->addWidget(editDetail);
+	layout->addWidget(frameContainer);
 }
 
-void DetailsFrame::appendText(QString text) {
+void DetailsFrame::imageLoaded(QPixmap* pixmap) {
+	if (this->isVisible()) {
+		qDebug() << __PRETTY_FUNCTION__;
+	}
 }
-void DetailsFrame::appendPixmap(QPixmap* pixmap) {
+
+void DetailsFrame::groupFinished(QString groupName) {
+	//
+}
+
+void DetailsFrame::processText(QString string) {
+	//
 }

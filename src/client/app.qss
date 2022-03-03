@@ -7,8 +7,15 @@
     background-color: white;
 }
 
+QTextEdit {
+    background-color: transparent;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 16px;
+}
 
-QTextEdit, QLineEdit {
+
+QLineEdit {
     background-color: white;
     height: 32px;
     margin-left: 32px;
@@ -20,7 +27,76 @@ QLineEdit[search="true"] {
     background-image: url(":/images/search.png");
     background-repeat: no-repeat;
     background-position: right;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
 }
+
+QLabel {
+    color: black;
+    margin-left: 16px;
+    margin-bottom: 16px;
+}
+
+QLabel[summary="true"] {
+    color: black;
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+QStackedWidget {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+QFrame,QMessageBox {
+    background: lightgray;
+
+}
+
+QFrame[container="true"] {
+    background: white;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+QTreeWidget, QListWidget, QListView, QTableView {
+    border-style: none;
+    margin-left: 16px;
+    margin-right: 16px;
+
+}
+
+QTreeWidget:item, QListWidget::item, QListView::item, QTableView::item {
+    color: black;
+    min-height: 60px;
+    height: 60px;
+    background-color: white;
+    margin-bottom: 5px;
+    padding-left: 10px;
+}
+
+QTreeWidget::item:hover,
+QTreeWidget::item:selected {
+    background-color: gray;
+}
+
+QListWidget::item:hover,
+QListWidget::item:selected {
+    background-color: gray;
+}
+
+QListView::item:hover,
+QListView::item:selected {
+    background-color: gray;
+}
+
+QTableView::item:hover,
+QTableView::item:selected {
+    background-color: gray;
+}
+
 
 QPushButton {
     background-color: red;
@@ -38,58 +114,6 @@ QPushButton[navigate="true"] {
     margin-right: 32px;
 }
 
-QPushButton[navigate="true"]:hover{
-    background-color: gray;
-}
-
-QLabel {
-    color: black;
-    margin-left: 16px;
-    margin-bottom: 16px;
-}
-
-QLabel[summary="true"] {
-    color: black;
-    margin-left: 32px;
-    margin-right: 32px;
-}
-
-QFrame {
-    background: lightgray;
-
-}
-
-QFrame[container="true"] {
-    background: white;
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-bottom: 16px;
-}
-
-QTreeWidget, QListWidget, QListView {
-    border-style: none;
-    margin-left: 16px;
-    margin-right: 16px;
-}
-
-QTreeWidget:item, QListWidget::item, QListView::item {
-    color: black;
-    min-height: 40px;
-    background-color: white;
-    margin: 1px;
-}
-
-QTreeWidget::item:hover,
-QTreeWidget::item:selected {
-    background-color: gray;
-}
-
-QListWidget::item:hover,
-QListWidget::item:selected {
-    background-color: gray;
-}
-
-QListView::item:hover,
-QListView::item:selected {
+QPushButton[navigate="true"]:hover {
     background-color: gray;
 }

@@ -11,8 +11,7 @@
 class QJsonObject;
 namespace client::entity {
 
-class Route {
-public:
+struct Route {
 	Route(int id, QString shortName);
 	Route();
 	void appendCategory(int id);
@@ -22,13 +21,12 @@ public:
 	void read(const QJsonObject& json);
 	//void write(const QJsonObject &json);
 
-private:
 	int _id{0};
 	QString _shortName{""};
 	QString _title{""};
 	QString _content{""};
 	std::vector<int> _categories;
-	QString _imageSource{""}; // not clear why in json is used image and images?
+	QString _imageSource{""};
 	QStringList _imageSourceList;
 };
 

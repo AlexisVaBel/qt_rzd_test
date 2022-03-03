@@ -2,6 +2,9 @@
 
 #include <QString>
 
+#include "IConfigProducer.h"
+#include "Route.h"
+
 #include <map>
 #include <QJsonArray>
 #include <vector>
@@ -10,18 +13,19 @@ class QJsonObject;
 
 namespace client::entity {
 
-class Route;
-
-class RoutesAgregate {
+class RoutesAgregate : public IConfigProducer {
 public:
-	void read(const QJsonObject& json);
+	void read(const QJsonObject& json) override;
 
-	std::vector<QString> getCategories();
+	std::vector<QString> getCategories() override;
+	std::vector<Route> getRoutes() override;
+	std::vector<Route> getSummary() override;
+	int getIdByCategory(QString category) override;
 
 private:
-	void readFull(const QJsonArray& json);
-	void readCategories(const QJsonArray& json);
-	void readSummary(const QJsonArray& json);
+	void _readFull(const QJsonArray& json);
+	void _readCategories(const QJsonArray& json);
+	void _readSummary(const QJsonArray& json);
 
 	std::vector<Route> _routesFull;
 	std::vector<Route> _routesSummary;
